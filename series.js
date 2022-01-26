@@ -7,8 +7,19 @@ var back_layer= L.tileLayer(mbUrl, {id: 'back', attribution: mbAttr});
 //const url_owgis="http://pronosticos.unam.mx:8080/ncWMS_2015/wms"
 const urlbase="https://pronosticos.atmosfera.unam.mx:8443/ncWMS_2015/";
 const urlbase2="http://132.248.8.238:8080/ncWMS_2015/";
-//var t=require("./mensual.json");
+const t="mensual.json";
+//var fileread = new FileReader();
+//fileread.onload =function(e){
+        //var content = e.target.result;
+        //var intern = JSON.parse(content);
+        //console.log('int:', intern);
+//};
+//fileread.readAsText(t);
 //console.log(t);
+//const req = new XMLHttpRequest();
+//req.open('GET', t);
+//req.rsponseType='json';
+//req.send();
 var temp=L.tileLayer.wms(urlbase+'wms',
         {
                 version:"1.3.0",
@@ -22,10 +33,10 @@ var temp=L.tileLayer.wms(urlbase+'wms',
         belowmincolor:"extend",
         abovemaxcolor:"extend",
         numcolorbands:65,
-        attribution:'IOA',
+        //attribution:'IOA',
         uppercase:true,
-                widht:256,
-                height:256,
+                //widht:256,
+                //height:256,
         });
 var base_layers={
     "Temperatura ":temp,
@@ -45,7 +56,7 @@ var map = L.map('map', {
         zoom: 5.6,
         minZoom:5,
         maxZoom:20,
-        layers: [ back_layer, temp],
+        layers: [ back_layer, ],
         maxBounds: bounds,
         maxBoundsViscosity: 1,
         });
@@ -105,6 +116,12 @@ var var_list=[
 ]
 add_layers_div(tipo_list, '#menu_t');
 add_layers_div(var_list, '#menu_var');
+
+function change_var(){
+        console.log('var');
+        
+        map.addLayer(temp);
+}
 
 function add_layers_div(layers, div){
         layers.forEach(function(lname, indx, array){
